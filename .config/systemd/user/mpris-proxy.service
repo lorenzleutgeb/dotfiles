@@ -1,0 +1,10 @@
+[Install]
+WantedBy=default.target
+
+[Service]
+ExecStart=/nix/store/9fv2w93p5fykqpxj35v3jcxbq0rfp8nw-bluez-5.80/bin/mpris-proxy
+
+[Unit]
+After=network.target
+After=sound.target
+Description=mpris-proxy

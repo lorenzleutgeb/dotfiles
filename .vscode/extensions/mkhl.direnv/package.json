@@ -1,0 +1,173 @@
+{
+	"name": "direnv",
+	"displayName": "direnv",
+	"description": "unclutter your .profile",
+	"version": "0.17.0",
+	"preview": true,
+	"icon": "assets/icon.png",
+	"maintainers": [
+		{
+			"name": "The direnv VSCode extension team",
+			"url": "https://github.com/orgs/direnv/teams/vscode"
+		}
+	],
+	"contributors": [
+		{
+			"name": "cab404",
+			"url": "https://github.com/cab404"
+		},
+		{
+			"name": "mkhl",
+			"url": "https://github.com/mkhl"
+		}
+	],
+	"publisher": "mkhl",
+	"license": "0BSD",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/direnv/direnv-vscode"
+	},
+	"engines": {
+		"vscode": "^1.71.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"*",
+		"onLanguage"
+	],
+	"capabilities": {
+		"untrustedWorkspaces": {
+			"supported": false,
+			"description": "direnv can run arbitrary shell code"
+		}
+	},
+	"contributes": {
+		"configuration": {
+			"title": "direnv",
+			"properties": {
+				"direnv.extraEnv": {
+					"type": "object",
+					"scope": "machine-overridable",
+					"description": "Environment variables that will be set before running direnv",
+					"additionalProperties": {
+						"type": "string"
+					}
+				},
+				"direnv.watchForChanges": {
+					"type": "boolean",
+					"default": true,
+					"description": "Automatically reload environment on file changes"
+				},
+				"direnv.path.executable": {
+					"type": "string",
+					"default": "direnv",
+					"scope": "machine-overridable",
+					"description": "Path to the direnv executable"
+				},
+				"direnv.status.showChangesCount": {
+					"type": "boolean",
+					"default": true,
+					"description": "Show the number of changed environment variables"
+				},
+				"direnv.restart.automatic": {
+					"type": "boolean",
+					"default": false,
+					"description": "Automatically restart extension host upon environment changes"
+				}
+			}
+		},
+		"commands": [
+			{
+				"command": "direnv.allow",
+				"title": "direnv: Allow this .envrc file"
+			},
+			{
+				"command": "direnv.block",
+				"title": "direnv: Block this .envrc file"
+			},
+			{
+				"command": "direnv.create",
+				"title": "direnv: Create .envrc file"
+			},
+			{
+				"command": "direnv.open",
+				"title": "direnv: Open .envrc file"
+			},
+			{
+				"command": "direnv.reload",
+				"title": "direnv: Reload environment"
+			},
+			{
+				"command": "direnv.reset",
+				"title": "direnv: Reset and reload environment"
+			},
+			{
+				"command": "direnv.loadEnvrc",
+				"title": "direnv: Load .envrc file"
+			}
+		],
+		"menus": {
+			"commandPalette": [
+				{
+					"command": "direnv.allow",
+					"when": "editorLangId == shellscript"
+				},
+				{
+					"command": "direnv.block",
+					"when": "editorLangId == shellscript"
+				}
+			],
+			"explorer/context": [
+				{
+					"when": "resourceFilename == .envrc",
+					"command": "direnv.loadEnvrc",
+					"group": "5_direnv@1"
+				}
+			]
+		}
+	},
+	"main": "./dist/extension.js",
+	"scripts": {
+		"version": "bin/update-changelog $npm_package_version && git add CHANGELOG.md",
+		"package": "vsce package --allow-star-activation",
+		"vscode:prepublish": "run-s \"build -- --minify {@}\" --",
+		"clean": "rimraf ./out ./dist",
+		"build": "esbuild ./src/extension.ts --bundle --outfile=dist/extension.js --platform=node --target=node16 --external:vscode",
+		"eslint": "eslint --cache --cache-location ./.cache/eslint/ .",
+		"prettier": "prettier --cache --cache-location ./.cache/prettier/ .",
+		"compile:source": "run-s \"build -- --sourcemap {@}\" --",
+		"compile:tests": "tsc",
+		"watch:source": "run-s \"compile:source -- --watch {@}\" --",
+		"watch:tests": "run-s \"compile:tests -- --watch {@}\" --",
+		"lint": "run-p --aggregate-output --continue-on-error lint:*",
+		"lint:eslint": "run-s \"eslint -- {@}\" --",
+		"lint:prettier": "run-s \"prettier -- --check {@}\" --",
+		"fix": "run-p --aggregate-output --continue-on-error fix:*",
+		"fix:eslint": "run-s \"eslint -- --fix {@}\" --",
+		"fix:prettier": "run-s \"prettier -- --write {@}\" --",
+		"pretest": "run-p --aggregate-output --continue-on-error compile:*",
+		"test": "node ./out/test/runTest.js"
+	},
+	"devDependencies": {
+		"@types/mocha": "^10.0.6",
+		"@types/node": "16.x",
+		"@types/sinon": "^17.0.3",
+		"@types/vscode": "1.71.x",
+		"@typescript-eslint/eslint-plugin": "^6.15.0",
+		"@typescript-eslint/parser": "^6.15.0",
+		"@vscode/test-electron": "^2.3.9",
+		"@vscode/vsce": "^2.24.0",
+		"esbuild": "^0.20.1",
+		"eslint": "^8.57.0",
+		"eslint-config-prettier": "^9.1.0",
+		"glob": "^10.3.10",
+		"mocha": "^10.3.0",
+		"npm-run-all": "^4.1.5",
+		"prettier": "^3.2.5",
+		"rimraf": "^5.0.5",
+		"sinon": "^17.0.1",
+		"typescript": "^5.4.2"
+	}
+}

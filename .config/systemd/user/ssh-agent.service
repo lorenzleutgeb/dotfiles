@@ -1,0 +1,9 @@
+[Install]
+WantedBy=default.target
+
+[Service]
+ExecStart=/nix/store/0xh3cvypx00csnmz1b0xzy0vhsgapw3k-openssh-10.0p2/bin/ssh-agent -D -a %t/ssh-agent
+
+[Unit]
+Description=SSH authentication agent
+Documentation=man:ssh-agent(1)

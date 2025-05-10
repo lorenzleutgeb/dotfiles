@@ -1,0 +1,13 @@
+[Added Associations]
+
+[Default Applications]
+*=explorer.desktop
+application/pdf=explorer.desktop
+x-scheme-handler/about=explorer.desktop
+x-scheme-handler/http=explorer.desktop
+x-scheme-handler/https=explorer.desktop
+x-scheme-handler/mailto=explorer.desktop
+x-scheme-handler/rad=rad.desktop
+x-scheme-handler/unknown=explorer.desktop
+
+[Removed Associations]

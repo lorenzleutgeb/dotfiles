@@ -1,0 +1,17 @@
+[Install]
+WantedBy=default.target
+
+[Service]
+Environment=PATH=/nix/store/0xh3cvypx00csnmz1b0xzy0vhsgapw3k-openssh-10.0p2/bin
+ExecStart=/nix/store/z8z1mhfnvw40dwljqazxv0343sv5ds2g-git-2.49.0/bin/git push --force --prune --porcelain --quiet gh:ll/nur refs/heads/*:refs/heads/* refs/tags/*:refs/tags/*
+Restart=on-failure
+RestartMaxDelaySec=5min
+RestartSec=10s
+RestartSteps=5
+Type=oneshot
+WorkingDirectory=/home/runner/.radicle/storage/z3WFXKNQgDcHHATJx1PxL1XhDot9u
+
+[Unit]
+ConditionDirectoryNotEmpty=/home/runner/.radicle/storage
+Description=Mirror z3WFXKNQgDcHHATJx1PxL1XhDot9u to gh:ll/nur
+SourcePath=/nix/store/b36psg5vhby4w9jmfswkhh1ach068njh-source/hm/module/services

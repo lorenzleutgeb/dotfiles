@@ -1,0 +1,17 @@
+[Install]
+WantedBy=default.target
+
+[Service]
+Environment=PATH=/nix/store/0xh3cvypx00csnmz1b0xzy0vhsgapw3k-openssh-10.0p2/bin
+ExecStart=/nix/store/z8z1mhfnvw40dwljqazxv0343sv5ds2g-git-2.49.0/bin/git push --force --prune --porcelain --quiet gh:ll/heartwood refs/heads/*:refs/heads/* refs/tags/*:refs/tags/* refs/namespaces/z6MkireRatUThvd3qzfKht1S44wpm4FEWSSa4PRMTSQZ3voM/refs/heads/*:refs/heads/FintanH/* refs/namespaces/z6MkireRatUThvd3qzfKht1S44wpm4FEWSSa4PRMTSQZ3voM/refs/tags/*:refs/tags/FintanH/* refs/namespaces/z6MksFqXN3Yhqk8pTJdUGLwATkRfQvwZXPqR2qMEhbS9wzpT/refs/heads/*:refs/heads/cloudhead/* refs/namespaces/z6MksFqXN3Yhqk8pTJdUGLwATkRfQvwZXPqR2qMEhbS9wzpT/refs/tags/*:refs/tags/cloudhead/*
+Restart=on-failure
+RestartMaxDelaySec=5min
+RestartSec=10s
+RestartSteps=5
+Type=oneshot
+WorkingDirectory=/home/runner/.radicle/storage/z3gqcJUoA1n9HaHKufZs5FCSGazv5
+
+[Unit]
+ConditionDirectoryNotEmpty=/home/runner/.radicle/storage
+Description=Mirror z3gqcJUoA1n9HaHKufZs5FCSGazv5 to gh:ll/heartwood
+SourcePath=/nix/store/b36psg5vhby4w9jmfswkhh1ach068njh-source/hm/module/services

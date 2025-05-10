@@ -1,0 +1,11 @@
+filter_mode = "workspace"
+key_file = "/run/user/1000/secrets/atuin/key"
+keymap_mode = "vim-insert"
+prefers_reduced_motion = "true"
+show_help = "false"
+style = "auto"
+update_check = "false"
+workspaces = "true"
+[daemon]
+enabled = true
+systemd_socket = true

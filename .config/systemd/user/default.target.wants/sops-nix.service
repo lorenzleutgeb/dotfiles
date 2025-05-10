@@ -1,0 +1,10 @@
+[Install]
+WantedBy=default.target
+
+[Service]
+Environment=
+ExecStart=/nix/store/c4p7v07ma3xylwgidr5p3l1r1a9qcllc-sops-nix-user
+Type=oneshot
+
+[Unit]
+Description=sops-nix activation

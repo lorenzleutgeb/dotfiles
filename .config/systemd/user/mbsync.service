@@ -1,0 +1,7 @@
+[Service]
+ExecStart=/nix/store/4scfd0kjwy5vjzk2xl5kmsmc3qmwsfn0-isync-1.5.1/bin/mbsync --all --verbose
+ExecStartPost=/nix/store/lkvgy99khwrf1zhvr27y1y61fcdaa9n9-python3-3.11.12/bin/python3.11 /home/runner/src/github.com/lorenzleutgeb/junk/junk.py
+Type=oneshot
+
+[Unit]
+Description=mbsync mailbox synchronization

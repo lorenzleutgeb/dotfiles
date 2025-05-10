@@ -1,0 +1,7 @@
+*.orig
+.dir-locals.el
+.mob
+/.direnv/
+/.env
+/.envrc
+/result/

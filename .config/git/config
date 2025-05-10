@@ -1,0 +1,229 @@
+[alias]
+	a = "add"
+	alias = "! git config --get-regexp ^alias\\. | sed -e s/^alias\\.// -e s/\\ /\\ =\\ /"
+	ap = "add --patch"
+	b = "branch"
+	bl = "git for-each-ref --format=\"%(align:24,left)%(committername)%(end) %(committerdate:format:%F) %(objectname:short) %(refname:lstrip=3)\" --sort=committerdate --sort=committername refs/remotes/origin"
+	c = "commit"
+	ca = "commit --amend"
+	can = "commit --amend --no-edit"
+	cane = "commit --amend --no-edit"
+	cd = "! cd $(git rev-parse --show-toplevel)"
+	cn = "commit --no-verify"
+	co = "checkout"
+	cob = "checkout -b"
+	coc = "! f(){ git checkout \"$1\" && git clean -xfd; }; f"
+	cp = "cherry-pick"
+	cpc = "cherry-pick --continue"
+	d = "diff"
+	ds = "diff --staged"
+	i = "!gi() { curl -L -s https://www.gitignore.io/api/$@ ;}; gi"
+	l = "log --graph --pretty=format:'%Cred%h%Creset%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)%an%Creset' --abbrev-commit --date=relative"
+	ll = "log --graph --decorate --show-signature --date=iso8601-strict --use-mailmap --abbrev-commit"
+	m = "merge"
+	mff = "merge --ff-only"
+	mm = "! git branch -m master main && git fetch origin && git branch -u origin/main main && git remote set-head origin -a"
+	month = "! git log --no-merges --since='last month' --author=$USER --reverse --pretty=format:'%cd %s %d' --date=short"
+	mr = "! sh -c 'git fetch $1 merge-requests/$2/head:mr-$1-$2 && git checkout mr-$1-$2' -"
+	p = "push"
+	pam = "!f() { branch=\"$(git rev-parse --abbrev-ref HEAD)\" ; git checkout --detach ; git commit $@ ; git push self HEAD:refs/patches ; git checkout \"$branch\" ; }; f"
+	pf = "push --force-with-lease"
+	pff = "push --force"
+	pr = "!f() { remote=${2:-origin} ; git fetch $remote refs/pull/$1/head:#$1 ; } ; f"
+	r = "rebase"
+	rb = "!grb() { git rebase -i $(git merge-base HEAD ${@:-sandbox}) ;}; grb"
+	rc = "rebase --continue"
+	rh = "reset --hard"
+	ri = "rebase --interactive"
+	rs = "!grs() { git remote show ${1:-origin} | grep -vE \"\\stracked$\" ;}; grs"
+	s = "status --short --branch"
+	sh = "show --ext-diff"
+	suffix = "!gsuffix() { mv -v ${GIT_PREFIX}${1} ${GIT_PREFIX}${1}-$(git describe --abbrev=${2:-4} --always --dirty) ;}; gsuffix"
+	tags = "tag -l"
+	who = "!gwho() { git log --pretty=%an $@ | sort | uniq ;}; gwho"
+	yesterday = "! git log --no-merges --since='yesterday' --author=$USER --reverse --pretty=format:'%cd %s %d' --date=short"
+
+[branch]
+	autoSetupMerge = "always"
+	autoSetupRebase = "always"
+	sort = "-committerdate"
+
+[checkout]
+	defaultRemote = "origin"
+	guess = true
+	thresholdForParallelism = 0
+
+[column]
+	ui = "auto"
+
+[commit]
+	verbose = true
+
+[core]
+	autocrlf = "input"
+	commitGraph = true
+	editor = "nvim"
+	pager = "delta"
+
+[credential "https://gist.github.com"]
+	helper = "/nix/store/aapnxgvkl1xx1s13c93k8d18f3vlg9r0-gh-2.72.0/bin/gh auth git-credential"
+
+[credential "https://github.com"]
+	helper = "/nix/store/aapnxgvkl1xx1s13c93k8d18f3vlg9r0-gh-2.72.0/bin/gh auth git-credential"
+
+[delta]
+	features = "line-numbers decorations side-by-side"
+	navigate = true
+	theme = "Monokai Extended"
+
+[diff]
+	algorithm = "histogram"
+	colormoved = "plain"
+	external = "/nix/store/fgsjaarjpp1mi37kzn9dkahg6acax35g-difftastic-0.63.0/bin/difft --color auto --background light --display side-by-side"
+	mnemonicPrefix = true
+	renames = true
+	tool = "difftastic"
+
+[difftool]
+	prompt = "false"
+
+[difftool "difftastic"]
+	cmd = "/nix/store/fgsjaarjpp1mi37kzn9dkahg6acax35g-difftastic-0.63.0/bin/difft --color auto --background light --display side-by-side \"$LOCAL\" \"$REMOTE\""
+
+[fetch]
+	all = true
+	negotiationAlgorithm = "skipping"
+	parallel = 0
+	prune = true
+	pruneTags = true
+	recurseSubmodules = true
+	writeCommitGraph = true
+
+[filter "gpg"]
+	clean = "gpg --encrypt --recipient EBB1C984 -o- %f | git-lfs clean -- %f"
+	smudge = "git-lfs smudge -- %f | gpg --decrypt --output %f"
+
+[filter "lfs"]
+	clean = "git-lfs clean -- %f"
+	process = "git-lfs filter-process"
+	required = true
+	smudge = "git-lfs smudge -- %f"
+
+[ghq]
+	root = "~/src"
+
+[gpg]
+	format = "openpgp"
+
+[gpg "openpgp"]
+	program = "/nix/store/wfsqj2kiqsnrp24gjfrw2bprrmzca31i-gnupg-2.4.7/bin/gpg"
+
+[help]
+	autocorrect = "prompt"
+
+[init]
+	defaultBranch = "main"
+
+[interactive]
+	diffFilter = "delta --color-only"
+
+[lfs "customtransfer.ipfs"]
+	concurrent = false
+	path = "/home/lorenz/src/github.com/lorenzleutgeb/git-lfs-ipfs/transfer.sh"
+
+[lfs "extension.ipfs"]
+	clean = "/home/lorenz/src/github.com/lorenzleutgeb/git-lfs-ipfs/clean.sh %f"
+	smudge = "/home/lorenz/src/github.com/lorenzleutgeb/git-lfs-ipfs/smudge.sh %f"
+
+[log]
+	date = "iso8601"
+
+[merge]
+	conflictStyle = "zdiff3"
+	ff = false
+	guitool = "meld"
+
+[merge "npm-merge-driver"]
+	driver = "npm-merge-driver merge %A %O %B %P"
+	name = "Automatically merge npm lockfiles"
+
+[mergetool]
+	keepBackup = "false"
+	prompt = false
+
+[pager]
+	difftool = "true"
+
+[pull]
+	ff = "only"
+
+[push]
+	default = "simple"
+
+[rebase]
+	autoSquash = true
+	autoStash = true
+	updateRefs = true
+
+[rerere]
+	autoupdate = true
+	enabled = true
+
+[sendemail]
+	annotate = true
+	smtpEncryption = "tls"
+	smtpServerPort = 587
+
+[sendemail "mpi-inf.mpg.de"]
+	smtpServer = "mail.mpi-inf.mpg.de"
+	smtpUser = "lorenz"
+
+[status]
+	showStash = true
+
+[tag]
+	sort = "version:refname"
+
+[url "ssh://git@git.sclable.com/"]
+	insteadOf = "scl:"
+	pushInsteadOf = "https://git.sclable.com/"
+
+[url "ssh://git@git.sclable.com/lorenz.leutgeb/"]
+	insteadOf = "scl:ll/"
+	pushInsteadOf = "https://git.sclable.com/lorenz.leutgeb/"
+
+[url "ssh://git@github.com/"]
+	insteadOf = "gh:"
+	pushInsteadOf = "https://github.com/"
+
+[url "ssh://git@github.com/lorenzleutgeb/"]
+	insteadOf = "gh:ll/"
+	pushInsteadOf = "https://github.com/lorenzleutgeb/"
+
+[url "ssh://git@github.molgen.mpg.de/"]
+	insteadOf = "https://github.molgen.mpg.de/"
+
+[url "ssh://git@gitlab.mpi-klsb.mpg.de/"]
+	insteadOf = "https://gitlab.mpi-klsb.mpg.de/"
+
+[url "ssh://git@gitlab.mpi-sws.org/"]
+	insteadOf = "https://gitlab.mpi-sws.org/"
+
+[user]
+	email = "lorenz@leutgeb.xyz"
+	name = "Lorenz Leutgeb"
+
+[includeIf "gitdir:~/src/git.sclable.com/"]
+	path = "/nix/store/f08h490bsz66i06vfxmqf2aqkbzni40v-hm_gitconfig"
+
+[includeIf "gitdir:~/src/gitlab.mpi-klsb.mpg.de/"]
+	path = "/nix/store/iflz5wy8slsvy47dilvf8z7d8s7vk3r6-hm_gitconfig"
+
+[includeIf "gitdir:~/src/github.molgen.mpg.de/"]
+	path = "/nix/store/iflz5wy8slsvy47dilvf8z7d8s7vk3r6-hm_gitconfig"
+
+[includeIf "gitdir:~/src/gitlab.mpi-sws.org/"]
+	path = "/nix/store/iflz5wy8slsvy47dilvf8z7d8s7vk3r6-hm_gitconfig"
+
+[includeIf "gitdir:~/src/git.rg1.mpi-inf.mpg.de/"]
+	path = "/nix/store/iflz5wy8slsvy47dilvf8z7d8s7vk3r6-hm_gitconfig"

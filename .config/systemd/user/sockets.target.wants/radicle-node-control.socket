@@ -1,0 +1,12 @@
+[Install]
+WantedBy=sockets.target
+
+[Socket]
+ListenStream=%t/radicle/control.sock
+RuntimeDirectory=radicle
+RuntimeDirectoryPreserve=yes
+Service=radicle-node-proxy.service
+
+[Unit]
+Description=Radicle Node Control Socket
+Documentation=man:radicle-node(1)

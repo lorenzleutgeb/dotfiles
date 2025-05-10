@@ -1,0 +1,33 @@
+{
+  "cli": {
+    "hints": true
+  },
+  "node": {
+    "alias": "lorenz",
+    "connect": [
+      "z6MksmpU5b1dS7oaqF2bHXhQi1DWy2hB7Mh9CuN7y1DN6QSz@seed.radicle.xyz:8776",
+      "z6MkocYY4dgMjo2YeUEwQ4BP4AotL7MyovzJCPiEuzkjg127@node.radicle.lorenz.leutgeb.xyz:8776"
+    ],
+    "externalAddresses": [],
+    "listen": [],
+    "network": "main",
+    "peers": {
+      "target": 8,
+      "type": "dynamic"
+    },
+    "policy": "block",
+    "relay": true,
+    "scope": "all",
+    "workers": 8
+  },
+  "preferredSeeds": [
+    "z6MkrLMMsiPWUcNPHcRajuMi9mDfYckSoJyPwwnknocNYPm7@seed.radicle.garden:8776",
+    "z6Mkmqogy2qEM2ummccUthFEaaHvyYmYBYh3dbe9W4ebScxo@ash.radicle.garden:8776"
+  ],
+  "publicExplorer": "https://app.radicle.xyz/nodes/$host/$rid$path",
+  "web": {
+    "pinned": {
+      "repositories": []
+    }
+  }
+}

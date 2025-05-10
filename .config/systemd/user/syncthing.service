@@ -1,0 +1,22 @@
+[Install]
+WantedBy=default.target
+
+[Service]
+ExecStart=/nix/store/riz37x47h6c98m9bwzrm81bp7cm5ip4v-syncthing-1.29.5/bin/syncthing -no-browser -no-restart -no-upgrade '-gui-address=127.0.0.1:8384' '-logflags=0'
+LockPersonality=true
+MemoryDenyWriteExecute=true
+NoNewPrivileges=true
+PrivateUsers=true
+Restart=on-failure
+RestartForceExitStatus=3
+RestartForceExitStatus=4
+RestrictNamespaces=true
+SuccessExitStatus=3
+SuccessExitStatus=4
+SystemCallArchitectures=native
+SystemCallFilter=@system-service
+
+[Unit]
+After=network.target
+Description=Syncthing - Open Source Continuous File Synchronization
+Documentation=man:syncthing(1)

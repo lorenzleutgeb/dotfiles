@@ -1,0 +1,17 @@
+[Service]
+Environment=PATH=/nix/store/fxcgpjpzqlk44b70f4smyad6y6jnw8cw-git-with-svn-2.49.0/bin
+ExecStart=/nix/store/0nb4b261ss8g76aacbxyj8w7nxzb30xb-radicle-node-1.1.0/bin/radicle-node 
+KillMode=process
+Restart=no
+RestartMaxDelaySec=1min
+RestartSec=2
+RestartSteps=100
+Slice=session.slice
+
+[Unit]
+ConditionPathExists=/home/runner/.radicle/keys/radicle
+ConditionPathExists=/home/runner/.radicle/keys/radicle.pub
+Description=Radicle Node
+Documentation=https://radicle.xyz/guides
+Documentation=man:radicle-node(1)
+StopWhenUnneeded=true

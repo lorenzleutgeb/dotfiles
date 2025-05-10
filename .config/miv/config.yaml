@@ -1,0 +1,94 @@
+plugin:
+  zhou13/vim-easyescape:
+    before: |
+      let g:easyescape_chars = { "j": 2 }
+      let g:easyescape_timeout = 300
+    after: cnoremap jj <ESC>
+
+  vim-airline/vim-airline:
+    before: |
+      let g:airline_powerline_fonts = 1
+
+  #itchyny/lightline.vim:
+  #  before: |
+  #    let g:lightline = {'colorscheme': 'solarized'}
+
+  morhetz/gruvbox:
+    before: |
+      let g:gruvbox_italic=1
+      let g:gruvbox_contrast_dark = 'hard'
+    after: |
+      colorscheme gruvbox
+      hi Normal guibg=NONE ctermbg=NONE
+
+  #frankier/neovim-colors-solarized-truecolor-only:
+  #  before:
+  #    set background=dark
+  #  after:
+  #    colorscheme solarized
+
+  # TODO: Migrate options
+  #rust-lang/rust.vim:
+  #  before: |
+  #    let g:rustfmt_autosave = 0
+  #
+  let-def/vimbufsync: {}
+
+  whonore/Coqtail: {}
+
+  # TODO: Migrate options
+  #sirver/Ultisnips:
+  #  before: |
+  #    let g:UltiSnipsExpandTrigger = '<tab>'
+  #    let g:UltiSnipsJumpForwardTrigger = '<tab>'
+  #    let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+
+  lervag/vimtex:
+    before: |
+      let g:tex_flavor = 'latex'
+      let g:vimtex_view_method = 'zathura'
+      let g:vimtex_quickfix_mode=0
+      let g:vimtex_compiler_method = 'arara'
+      let g:vimtex_compiler_progname = 'nvr'
+      let g:vimtex_compiler_arara = {
+       \ 'options' : ['-v'],
+       \}
+
+  KeitaNakamura/tex-conceal.vim:
+    before: |
+      set conceallevel=1
+      let g:tex_conceal='abdmg'
+
+  liuchengxu/vim-clap: {}
+
+  bfrg/vim-jq: {}
+
+  editorconfig/editorconfig-vim: {}
+
+  welle/targets.vim: {}
+
+  junegunn/vim-easy-align: {}
+
+  tpope/vim-eunuch: {}
+
+  airblade/vim-gitgutter: {}
+
+  dense-analysis/ale:
+    before: |
+      let g:ale_fixers = {
+      \   'haskell': [
+      \       'ormolu',
+      \   ],
+      \}
+
+  LnL7/vim-nix: {}
+
+  niklasl/vim-rdf: {}
+
+  chikamichi/mediawiki.vim: {}
+
+  aquach/vim-mediawiki-editor:
+    before: |
+      let g:mediawiki_editor_url = "localhost:8080"
+      let g:mediawiki_editor_path = ""
+      let g:mediawiki_editor_username = "lorenz"

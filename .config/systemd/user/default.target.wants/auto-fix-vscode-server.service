@@ -1,0 +1,10 @@
+[Install]
+WantedBy=default.target
+
+[Service]
+ExecStart=/nix/store/iyhkfffksvr6b4fmmfym6076anivwj77-auto-fix-vscode-server/bin/auto-fix-vscode-server
+Restart=always
+RestartSec=0
+
+[Unit]
+Description=Automatically fix the VS Code server used by the remote SSH extension

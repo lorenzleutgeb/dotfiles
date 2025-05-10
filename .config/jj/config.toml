@@ -1,0 +1,9 @@
+[diff]
+tool = ["difft", "--color=always", "$left", "$right"]
+
+[ui]
+default-command = ["log"]
+
+[user]
+email = "lorenz@leutgeb.xyz"
+name = "Lorenz Leutgeb"

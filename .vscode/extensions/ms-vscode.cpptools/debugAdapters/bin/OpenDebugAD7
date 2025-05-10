@@ -1,0 +1,8 @@
+#! /nix/store/xg75pc4yyfd5n2fimhb98ps910q5lm5n-bash-5.2p37/bin/bash -e
+PATH=${PATH:+':'$PATH':'}
+PATH=${PATH/':''/nix/store/v2gw1fvvp3fpsvdj04s363zb36hs411k-gdb-16.2/bin'':'/':'}
+PATH='/nix/store/v2gw1fvvp3fpsvdj04s363zb36hs411k-gdb-16.2/bin'$PATH
+PATH=${PATH#':'}
+PATH=${PATH%':'}
+export PATH
+exec -a "$0" "/nix/store/avfqp1sy4227zbxxnmgf0f4g78ml8kr8-vscode-extension-ms-vscode-cpptools-1.24.5/share/vscode/extensions/ms-vscode.cpptools/debugAdapters/bin/.OpenDebugAD7-wrapped"  "$@" 

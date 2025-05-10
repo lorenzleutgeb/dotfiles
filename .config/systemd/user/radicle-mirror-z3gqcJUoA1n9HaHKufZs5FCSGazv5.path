@@ -1,0 +1,10 @@
+[Install]
+WantedBy=paths.target
+
+[Path]
+PathChanged=/home/runner/.radicle/storage/z3gqcJUoA1n9HaHKufZs5FCSGazv5/refs/heads/master
+
+[Unit]
+ConditionDirectoryNotEmpty=/home/runner/.radicle/storage
+Description=Mirror z3gqcJUoA1n9HaHKufZs5FCSGazv5 to gh:ll/heartwood
+SourcePath=/nix/store/b36psg5vhby4w9jmfswkhh1ach068njh-source/hm/module/services

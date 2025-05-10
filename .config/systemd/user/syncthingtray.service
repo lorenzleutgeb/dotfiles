@@ -1,0 +1,12 @@
+[Install]
+WantedBy=graphical-session.target
+
+[Service]
+ExecStart=/nix/store/kxw93m80i8cinlqpzl9vdx5vdgxdfjdr-syncthingtray-1.7.7/bin/syncthingtray --wait
+
+[Unit]
+After=graphical-session.target
+After=tray.target
+Description=syncthingtray
+PartOf=graphical-session.target
+Requires=tray.target

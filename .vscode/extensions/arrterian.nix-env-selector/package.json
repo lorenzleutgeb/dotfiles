@@ -1,0 +1,98 @@
+{
+	"name": "nix-env-selector",
+	"displayName": "Nix Environment Selector",
+	"description": "Allows switch environment for Visual Studio Code and extensions based on Nix config file.",
+	"version": "1.0.12",
+	"keywords": [
+		"nix",
+		"nix-env",
+		"nix-shell",
+		"vscode"
+	],
+	"license": "MIT",
+	"publisher": "arrterian",
+	"author": {
+		"name": "Roman Valihura",
+		"email": "roman.valihura@gmail.com"
+	},
+	"icon": "resources/icon.png",
+	"engines": {
+		"vscode": "^1.97.0"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/arrterian/nix-env-selector.git"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"*",
+		"onLanguage"
+	],
+	"main": "./dist/index.js",
+	"contributes": {
+		"configuration": {
+			"title": "Nix Environment Selector",
+			"properties": {
+				"nixEnvSelector.nixFile": {
+					"type": "string",
+					"default": null,
+					"description": "Path for nix-shell config"
+				},
+				"nixEnvSelector.suggestion": {
+					"type": "boolean",
+					"default": true,
+					"description": "Shows message with proposal to select env (if available)"
+				},
+				"nixEnvSelector.args": {
+					"type": "string",
+					"default": null,
+					"description": "Additional args for nix-shell (EX: -A some.thing)"
+				},
+				"nixEnvSelector.packages": {
+					"type": "array",
+					"default": [],
+					"description": "Attr for nix-shell config"
+				},
+				"nixEnvSelector.nixShellPath": {
+					"type": "string",
+					"default": null,
+					"description": "Custom path to nix-shell executable"
+				},
+				"nixEnvSelector.nixShellConfig": {
+					"type": "string",
+					"deprecationMessage": "[DEPRECATED] Use 'nixFile' instead",
+					"description": "Path for nix-shell config"
+				},
+				"nixEnvSelector.nixShellConfigAttr": {
+					"type": "string",
+					"deprecationMessage": "[DEPRECATED] Use 'args' instead",
+					"description": "Attribute path (nix-shell -A)"
+				}
+			}
+		},
+		"commands": [
+			{
+				"command": "nixEnvSelector.selectEnv",
+				"title": "Nix-Env: Select environment"
+			},
+			{
+				"command": "nixEnvSelector.hitEnv",
+				"title": "Nix-Env: Hit environment"
+			}
+		]
+	},
+	"scripts": {
+		"vscode:prepublish": "echo ***DONE***",
+    "bundle": "esbuild --bundle dist/main.js --outfile=dist/index.js --external:vscode --platform=node --format=cjs --loader:.svg=file && rm dist/main.js",
+		"compile": "shadow-cljs release extension && npm run bundle",
+		"watch": "shadow-cljs watch extension"
+	},
+	"devDependencies": {
+		"@types/vscode": "^1.97.0",
+		"@vscode/test-electron": "^2.4.1",
+		"esbuild": "^0.25.0",
+		"shadow-cljs": "2.28.21"
+	}
+}

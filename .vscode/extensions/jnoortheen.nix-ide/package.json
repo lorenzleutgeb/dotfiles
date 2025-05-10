@@ -1,0 +1,182 @@
+{
+  "name": "nix-ide",
+  "displayName": "Nix IDE",
+  "description": "Nix language support - syntax highlighting, formatting, and error reporting.",
+  "version": "0.4.16",
+  "publisher": "jnoortheen",
+  "icon": "images/icon.png",
+  "license": "MIT",
+  "engines": {
+    "vscode": ">=1.96.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Formatters",
+    "Snippets"
+  ],
+  "keywords": [
+    "nix"
+  ],
+  "bugs": {
+    "url": "https://github.com/nix-community/vscode-nix-ide/issues"
+  },
+  "homepage": "https://github.com/nix-community/vscode-nix-ide",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nix-community/vscode-nix-ide"
+  },
+  "main": "dist/extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "nix",
+        "aliases": [
+          "Nix",
+          "nix"
+        ],
+        "extensions": [
+          ".nix"
+        ],
+        "icon": {
+          "dark": "images/icon.png",
+          "light": "images/icon.png"
+        },
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "nix",
+        "scopeName": "source.nix",
+        "path": "./dist/nix.tmLanguage.json"
+      },
+      {
+        "scopeName": "markdown.nix.codeblock",
+        "path": "./dist/injection.json",
+        "injectTo": [
+          "text.html.markdown"
+        ],
+        "embeddedLanguages": {
+          "meta.embedded.block.nix": "nix"
+        }
+      }
+    ],
+    "snippets": [
+      {
+        "language": "nix",
+        "path": "./snippets.json"
+      }
+    ],
+    "configuration": {
+      "title": "NixIDE",
+      "properties": {
+        "nix.formatterPath": {
+          "default": "nixfmt",
+          "markdownDescription": "Full path to the nix formatter executable.",
+          "oneOf": [
+            {
+              "type": "string",
+              "enum": [
+                "nixfmt",
+                "nix3-fmt",
+                "alejandra",
+                "treefmt",
+                "nixpkgs-fmt"
+              ],
+              "markdownEnumDescriptions": [
+                "[nixfmt](https://github.com/NixOS/nixfmt) - A formatter for the Nix language.",
+                "[nix3-fmt](https://nix.dev/manual/nix/2.17/command-ref/new-cli/nix3-fmt) - Use the flake configured formatter",
+                "[alejandra](https://github.com/kamadorueda/alejandra) - The Uncompromising Nix Code Formatter",
+                "[treefmt](https://github.com/numtide/treefmt-nix) - All in one formatter",
+                "[nixpkgs-fmt](https://github.com/nix-community/nixpkgs-fmt) - Deprecated as it is no longer maintained"
+              ]
+            },
+            {
+              "type": "array",
+              "items": "string",
+              "minItems": 1
+            }
+          ]
+        },
+        "nix.serverPath": {
+          "type": "string",
+          "default": "nil",
+          "description": "Location of the nix language server command."
+        },
+        "nix.enableLanguageServer": {
+          "type": "boolean",
+          "default": false,
+          "description": "Use LSP instead of nix-instantiate and nixfmt."
+        },
+        "nix.serverSettings": {
+          "type": "object",
+          "default": {},
+          "description": "Settings passed to the language server on configuration requests."
+        },
+        "nix.hiddenLanguageServerErrors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "description": "Error notifications from the language server for these request types will be suppressed.",
+          "examples": [
+            [
+              "textDocument/definition",
+              "textDocument/documentSymbol"
+            ]
+          ]
+        }
+      }
+    },
+    "configurationDefaults": {
+      "[nix]": {
+        "editor.insertSpaces": true,
+        "editor.tabSize": 2
+      }
+    },
+    "commands": [
+      {
+        "title": "Restart Language Server",
+        "category": "Nix IDE",
+        "command": "nix-ide.restartLanguageServer"
+      }
+    ]
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^19.6.1",
+    "@commitlint/config-conventional": "^19.6.0",
+    "@types/command-exists": "^1.2.3",
+    "@types/node": "^22.10.7",
+    "@types/vscode": "^1.96.0",
+    "@vscode/vsce": "^3.2.1",
+    "js-yaml": "^4.1.0",
+    "lefthook": "^1.10.8",
+    "ovsx": "^0.10.1",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.4.1",
+    "vscode-tmgrammar-test": "^0.1.3",
+    "typescript": "^5.7.3"
+  },
+  "scripts": {
+    "prebuild": "mkdir -p dist && js-yaml syntaxes/nix.YAML-tmLanguage > dist/nix.tmLanguage.json && js-yaml syntaxes/injection.yml > dist/injection.json",
+    "build-base": "bun build src/extension.ts --outdir=dist --external=vscode --target=node --format=cjs",
+    "build": "bun run build-base --sourcemap --minify",
+    "watch": "bun run build-base --sourcemap --watch",
+    "postinstall": "lefthook install",
+    "clean": "rm -rd dist",
+    "prepackage": "rm -f *.vsix",
+    "package": "bun run build && bun run vsce package --no-dependencies",
+    "publish:ovsx": "ovsx publish *.vsix --pat '$OVS_PAT'",
+    "publish:vsce": "vsce publish",
+    "publish": "bun run package && bun run publish:vsce && bun run publish:ovsx",
+    "pretest": "bun run build && vscode-tmgrammar-snap 'syntaxes/tests/*.nix'",
+    "test": "vscode-test",
+    "lint": "bun x biome check --write src"
+  },
+  "dependencies": {
+    "command-exists": "^1.2.9",
+    "vscode-languageclient": "^9.0.1",
+    "vscode-variables": "^1.0.1"
+  }
+}

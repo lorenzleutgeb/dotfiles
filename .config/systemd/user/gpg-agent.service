@@ -1,0 +1,11 @@
+[Service]
+Environment=GNUPGHOME=/home/runner/.gnupg
+ExecReload=/nix/store/wfsqj2kiqsnrp24gjfrw2bprrmzca31i-gnupg-2.4.7/bin/gpgconf --reload gpg-agent
+ExecStart=/nix/store/wfsqj2kiqsnrp24gjfrw2bprrmzca31i-gnupg-2.4.7/bin/gpg-agent --supervised --verbose
+
+[Unit]
+After=gpg-agent.socket
+Description=GnuPG cryptographic agent and passphrase cache
+Documentation=man:gpg-agent(1)
+RefuseManualStart=true
+Requires=gpg-agent.socket

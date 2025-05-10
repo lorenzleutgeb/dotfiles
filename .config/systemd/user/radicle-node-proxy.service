@@ -1,0 +1,15 @@
+[Service]
+Environment=SYSTEMD_LOG_LEVEL=debug
+ExecSearchPath=/nix/store/6rrvwz3dpqpbd1f9z40wzahfcmxnx9gh-systemd-257.5/lib/systemd
+ExecStart=systemd-socket-proxyd --exit-idle-time=5m %t/radicle/proxy.sock
+PrivateNetwork=yes
+PrivateTmp=yes
+RuntimeDirectory=radicle
+RuntimeDirectoryPreserve=yes
+
+[Unit]
+After=radicle-node-proxy.socket
+After=radicle-node.service
+BindsTo=radicle-node-proxy.socket
+BindsTo=radicle-node.service
+Description=Radicle Node Proxy

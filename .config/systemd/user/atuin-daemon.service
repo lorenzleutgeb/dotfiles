@@ -1,0 +1,13 @@
+[Install]
+Also=atuin-daemon.socket
+WantedBy=default.target
+
+[Service]
+ExecStart=/nix/store/sjnpc62pq28xyjniykxdgh2yi56ymgpq-atuin-18.5.0/bin/atuin daemon
+Restart=on-failure
+RestartMaxDelaySec=6
+RestartSteps=3
+
+[Unit]
+Description=Atuin daemon
+Requires=atuin-daemon.socket

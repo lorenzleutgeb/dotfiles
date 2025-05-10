@@ -1,0 +1,11 @@
+{
+  "editor.fontFamily": "Fira Code, Consolas, monospace",
+  "editor.fontLigatures": true,
+  "editor.guides.bracketPairs": true,
+  "lean4.input.languages": "lean4",
+  "remote.SSH.remotePlatform": {
+    "0mqr.lorenz.hs.leutgeb.xyz": "linux"
+  },
+  "rust-analyzer.updates.askBeforeDownload": false,
+  "update.channel": "none"
+}

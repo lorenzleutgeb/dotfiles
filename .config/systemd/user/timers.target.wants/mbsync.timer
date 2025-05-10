@@ -1,0 +1,9 @@
+[Install]
+WantedBy=timers.target
+
+[Timer]
+OnCalendar=*:0/5
+Unit=mbsync.service
+
+[Unit]
+Description=mbsync mailbox synchronization
